@@ -96,9 +96,9 @@ class Summary(Plugin):
         c.execute("SELECT * FROM chat_records WHERE sessionid=? and timestamp>? ORDER BY timestamp DESC LIMIT ?", (session_id, start_timestamp, limit))
         return c.fetchall()
 
-    def _get_all_records(self, start_timestamp=0, limit=9999):
+    def _get_all_records(self):
         c = self.conn.cursor()
-        c.execute("SELECT * FROM chat_records WHERE  timestamp>? ORDER BY timestamp DESC LIMIT ?", (start_timestamp, limit))
+        c.execute("SELECT * FROM chat_records   LIMIT 99")
         return c.fetchall()
         
     def on_receive_message(self, e_context: EventContext):
@@ -328,6 +328,6 @@ class Summary(Plugin):
             return help_text
         trigger_prefix = conf().get('plugin_trigger_prefix', "$")
         limit = 999
-        help_text += self._get_all_records(start_time, limit)
+        help_text += self._get_all_records()
         help_text += f"使用方法:输入\"{trigger_prefix}总结 最近消息数量\"，我会帮助你总结聊天记录。\n例如：\"{trigger_prefix}总结 100\"，我会总结最近100条消息。\n\n你也可以直接输入\"{trigger_prefix}总结前99条信息\"或\"{trigger_prefix}总结3小时内的最近10条消息\"\n我会尽可能理解你的指令。"
         return help_text
