@@ -269,7 +269,9 @@ class Summary(Plugin):
         ###############################
             for record in records:
                 session_id, user, content, timestamp = record
+                logger.info("==============================================================================\n")
                 logger.info("会话ID: {session_id}, 用户: {user}, 内容: {content}, 时间戳: {timestamp}\n")
+                logger.info("==============================================================================\n")
         ###############################
             for i in range(len(records)):
                 record=list(records[i])
