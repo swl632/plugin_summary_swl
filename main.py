@@ -88,6 +88,7 @@ class Summary(Plugin):
     def _insert_record(self, session_id, msg_id, user, content, msg_type, timestamp, is_triggered = 0):
         c = self.conn.cursor()
         logger.debug("[Summary] insert record: {} {} {} {} {} {} {}" .format(session_id, msg_id, user, content, msg_type, timestamp, is_triggered))
+        logger.info("[Summary] insert record: {} {} {} {} {} {} {}" .format(session_id, msg_id, user, content, msg_type, timestamp, is_triggered))
         c.execute("INSERT OR REPLACE INTO chat_records VALUES (?,?,?,?,?,?,?)", (session_id, msg_id, user, content, msg_type, timestamp, is_triggered))
         self.conn.commit()
     
@@ -266,11 +267,6 @@ class Summary(Plugin):
             if conf().get('channel_type', 'wx') == 'wx' and msg.from_user_nickname is not None:
                 session_id = msg.from_user_nickname # itchat channel id会变动，只好用名字作为session id
             records = self._get_records(session_id, start_time, limit)
-        # ###############################
-           logger.info("==============================================================================\n")
-           logger.info("{records}")
-           logger.info("==============================================================================\n")
-        # ###############################
             for i in range(len(records)):
                 record=list(records[i])
                 content = record[3]
