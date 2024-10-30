@@ -266,13 +266,13 @@ class Summary(Plugin):
             if conf().get('channel_type', 'wx') == 'wx' and msg.from_user_nickname is not None:
                 session_id = msg.from_user_nickname # itchat channel id会变动，只好用名字作为session id
             records = self._get_records(session_id, start_time, limit)
-        ###############################
-            for record in records:
-                session_id, user, content, timestamp = record
-                logger.info("==============================================================================\n")
-                logger.info("会话ID: {session_id}, 用户: {user}, 内容: {content}, 时间戳: {timestamp}\n")
-                logger.info("==============================================================================\n")
-        ###############################
+        # ###############################
+        #     for record in records:
+        #         session_id, user, content, timestamp = record
+        #         logger.info("==============================================================================\n")
+        #         logger.info("会话ID: {session_id}, 用户: {user}, 内容: {content}, 时间戳: {timestamp}\n")
+        #         logger.info("==============================================================================\n")
+        # ###############################
             for i in range(len(records)):
                 record=list(records[i])
                 content = record[3]
