@@ -96,9 +96,9 @@ class Summary(Plugin):
         c.execute("SELECT * FROM chat_records WHERE sessionid=? and timestamp>? ORDER BY timestamp DESC LIMIT ?", (session_id, start_timestamp, limit))
         return c.fetchall()
 
-    def _get_all_records(self, limit=999):
+    def _get_all_records(self):
         c = self.conn.cursor()
-        c.execute("SELECT * FROM chat_records  ORDER BY timestamp DESC LIMIT ?", (limit))
+        c.execute("SELECT * FROM chat_records  ORDER BY timestamp DESC LIMIT 99")
         return c.fetchall()
         
     def on_receive_message(self, e_context: EventContext):
